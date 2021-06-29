@@ -3,8 +3,7 @@
     <a-layout-sider width="200" style="background: #fff">
       <a-menu
           mode="inline"
-          v-model:selectedKeys="selectedKeys2"
-          v-model:openKeys="openKeys"
+
           :style="{ height: '100%', borderRight: 0 }"
       >
         <a-sub-menu key="sub1">
@@ -48,15 +47,33 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
-      Content
+<!--      <pre>{{ ebooks }}</pre>-->
+      <pre>{{ respBooks }}</pre>
+
     </a-layout-content>
   </a-layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
+import { defineComponent,onMounted,ref,reactive,toRef } from 'vue';
+import axios from 'axios';
 export default defineComponent({
-  name: 'Home'
+  name: 'Home',
+  setup(){
+    const ebooks = ref();
+    const e1 = reactive({books:[]});
+
+    onMounted(() =>{
+      axios.get("http://localhost:8880/ebook/list?name=V").then(resp =>{
+        const data = resp.data;
+        ebooks.value = data.content;
+        e1.books = data.content;
+      });
+    })
+    return {
+      ebooks,
+      respBooks: toRef(e1,"books")
+    }
+  }
 });
 </script>
