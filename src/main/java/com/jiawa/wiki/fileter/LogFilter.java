@@ -1,3 +1,4 @@
+/*
 package com.jiawa.wiki.fileter;
 
  import org.slf4j.Logger;
@@ -8,9 +9,11 @@ package com.jiawa.wiki.fileter;
  import javax.servlet.http.HttpServletRequest;
  import java.io.IOException;
 
+*/
 /**
  * @author yuu
- **/
+ **//*
+
 
 @Component
  public class LogFilter implements Filter {
@@ -34,4 +37,4 @@ package com.jiawa.wiki.fileter;
          filterChain.doFilter(servletRequest, servletResponse);
          LOG.info("------------- LogFilter 结束 耗时：{} ms -------------", System.currentTimeMillis() - startTime);
      }
- }
+ }*/
