@@ -111,6 +111,11 @@ export default defineComponent({
       },
       pageSize: 3,
     };
+    const actions: Record<string, string>[] = [
+      { type: 'StarOutlined', text: '156' },
+      { type: 'LikeOutlined', text: '156' },
+      { type: 'MessageOutlined', text: '2' },
+    ];
     const ebooks = ref();
     const e1 = reactive({books:[]});
 
@@ -125,7 +130,8 @@ export default defineComponent({
       ebooks,
       respBooks: toRef(e1,"books"),
       listData,
-      pagination
+      pagination,
+      actions
     }
   }
 });
