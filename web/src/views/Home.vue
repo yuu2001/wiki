@@ -47,35 +47,22 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
-      <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="listData">
-        <template #footer>
-          <div>
-            <b>ant design vue</b>
-            footer part
-          </div>
-        </template>
+      <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="ebooks"
+              :grid="{ gutter: 36, xs: 1 }">
         <template #renderItem="{ item }">
-          <a-list-item key="item.title">
+          <a-list-item key="item.name">
             <template #actions>
           <span v-for="{ type, text } in actions" :key="type">
             <component v-bind:is="type" style="margin-right: 8px" />
             {{ text }}
           </span>
             </template>
-            <template #extra>
-              <img
-                  width="272"
-                  alt="logo"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-              />
-            </template>
             <a-list-item-meta :description="item.description">
               <template #title>
-                <a :href="item.href">{{ item.title }}</a>
+                <a :href="item.href">{{ item.name }}</a>
               </template>
-              <template #avatar><a-avatar :src="item.avatar" /></template>
+              <template #avatar><a-avatar :src="item.cover" /></template>
             </a-list-item-meta>
-            {{ item.content }}
           </a-list-item>
         </template>
       </a-list>
@@ -105,12 +92,12 @@ for (let i = 0; i < 23; i++) {
 export default defineComponent({
   name: 'Home',
   setup(){
-    const pagination = {
+    /*const pagination = {
       onChange: (page: any) => {
         console.log(page);
       },
       pageSize: 3,
-    };
+    };*/
     const actions: Record<string, string>[] = [
       { type: 'StarOutlined', text: '156' },
       { type: 'LikeOutlined', text: '156' },
@@ -120,7 +107,7 @@ export default defineComponent({
     const e1 = reactive({books:[]});
 
     onMounted(() =>{
-      axios.get("http://localhost:8880/ebook/list?name=V").then(resp =>{
+      axios.get("http://localhost:8880/ebook/list?name=门").then(resp =>{
         const data = resp.data;
         ebooks.value = data.content;
         e1.books = data.content;
@@ -130,7 +117,6 @@ export default defineComponent({
       ebooks,
       respBooks: toRef(e1,"books"),
       listData,
-      pagination,
       actions
     }
   }
