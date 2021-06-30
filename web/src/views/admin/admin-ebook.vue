@@ -37,7 +37,7 @@ export default defineComponent({
     const e1 = reactive({books:[]});
     const pagination = ref({
       current: 1,
-      pageSize: 5,
+      pageSize: 3,
       total: 0
     });
     const loading = ref(false);
@@ -84,26 +84,35 @@ export default defineComponent({
       loading.value = true;
       //如果不清空现有数据，则编辑保存重新加载数据后，再点编辑显示的还是编辑前的数据
       /*ebook.value = [];*/
-      axios.get("/ebook/list", params).then((response) => {
+      axios.get("/ebook/list", {
+        params: {
+          page: params.page,
+          size: params.size
+        }
+      }).then((response) => {
         loading.value = false;
         const data = response.data;
-        ebooks.value = data.content;
+        ebooks.value = data.content.list;
         //重置分页按钮
         pagination.value.current = params.page;
+        pagination.value.total = data.content.total;
       });
     };
     /**
      * 表格点击页码时触发
      */
     const handleTableChange = (pagination: any) => {
-      console.log("看看自带的分页参数都有啥: " + pagination);
+      console.log("自带的分页参数: " + pagination);
       handleQuery({
         page: pagination.current,
         size: pagination.pageSize
       });
     };
     onMounted(() => {
-      handleQuery({});
+      handleQuery({
+        page: 1,
+        size: pagination.value.pageSize
+      });
     })
     return {
       ebooks,
