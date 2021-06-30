@@ -6,6 +6,7 @@ import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.po.Ebook;
 import com.jiawa.wiki.po.EbookExample;
 import com.jiawa.wiki.util.CopyUtil;
+import com.jiawa.wiki.vo.req.EBookSaveVo;
 import com.jiawa.wiki.vo.req.EBookVo;
 import com.jiawa.wiki.vo.resp.EBookRespVo;
 import com.jiawa.wiki.vo.resp.PageRespVo;
@@ -51,5 +52,14 @@ public class EBookService {
         pageRespVo.setList(respList);
         pageRespVo.setTotal(pageInfo.getTotal());
         return pageRespVo;
+    }
+
+    public void save(EBookSaveVo reqEbook) {
+        Ebook ebook = CopyUtil.copy(reqEbook, Ebook.class);
+        if (ObjectUtils.isEmpty(ebook.getId())){
+            ebookMapper.insert(ebook);
+            return;
+        }
+        ebookMapper.updateByPrimaryKey(ebook);
     }
 }
