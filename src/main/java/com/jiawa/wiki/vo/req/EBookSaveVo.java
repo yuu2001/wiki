@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author yuu
  **/
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EBookSaveVo {
     private Long id;
-
+    @NotNull(message = "名称不能为空")
     private String name;
 
     private Long category1Id;
