@@ -3,6 +3,15 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
+      <p>
+        <a-form layout="inline" :model="param">
+          <a-form-item>
+            <a-button type="primary" @click="add()">
+              新增
+            </a-button>
+          </a-form-item>
+        </a-form>
+      </p>
       <a-table
           :columns="columns"
           :row-key="record => record.id"
@@ -158,7 +167,13 @@ export default defineComponent({
       modalVisible.value = true;
       ebook.value = record
     };
-
+    /*
+    * 新增
+    */
+    const add = (record: any) => {
+      modalVisible.value = true;
+      ebook.value = {}
+    };
     onMounted(() => {
       handleQuery({
         page: 1,
@@ -171,7 +186,10 @@ export default defineComponent({
       columns,
       loading,
       handleTableChange,
+
       edit,
+      add,
+
       modalVisible,
       modalLoading,
       handleModalOk,

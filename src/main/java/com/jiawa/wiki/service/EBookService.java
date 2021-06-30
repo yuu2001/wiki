@@ -6,6 +6,7 @@ import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.po.Ebook;
 import com.jiawa.wiki.po.EbookExample;
 import com.jiawa.wiki.util.CopyUtil;
+import com.jiawa.wiki.util.SnowFlake;
 import com.jiawa.wiki.vo.req.EBookSaveVo;
 import com.jiawa.wiki.vo.req.EBookVo;
 import com.jiawa.wiki.vo.resp.EBookRespVo;
@@ -26,6 +27,9 @@ public class EBookService {
 
     @Resource
     private EbookMapper ebookMapper;
+
+    @Resource
+    private SnowFlake snowFlake;
 
     public PageRespVo<EBookRespVo> list(EBookVo req){
         EbookExample ebookExample = new EbookExample();
@@ -57,6 +61,7 @@ public class EBookService {
     public void save(EBookSaveVo reqEbook) {
         Ebook ebook = CopyUtil.copy(reqEbook, Ebook.class);
         if (ObjectUtils.isEmpty(ebook.getId())){
+            ebook.setId(snowFlake.nextId());
             ebookMapper.insert(ebook);
             return;
         }
