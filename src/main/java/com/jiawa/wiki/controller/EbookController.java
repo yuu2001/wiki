@@ -2,14 +2,14 @@ package com.jiawa.wiki.controller;
 
 import com.jiawa.wiki.resp.CommonResp;
 import com.jiawa.wiki.service.EBookService;
-import com.jiawa.wiki.vo.resp.EBookRespVo;
 import com.jiawa.wiki.vo.req.EBookVo;
+import com.jiawa.wiki.vo.resp.EBookRespVo;
+import com.jiawa.wiki.vo.resp.PageRespVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author yuu
@@ -22,8 +22,8 @@ public class EbookController {
 
     @GetMapping("/list")
     public CommonResp list(EBookVo ebookVO) {
-        CommonResp<List<EBookRespVo>> commonResp = new CommonResp<>();
-        List<EBookRespVo> list = ebookService.list(ebookVO);
+        CommonResp<PageRespVo<EBookRespVo>> commonResp = new CommonResp<>();
+        PageRespVo<EBookRespVo> list = ebookService.list(ebookVO);
         commonResp.setContent(list);
         return commonResp;
     }

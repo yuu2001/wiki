@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
  * @author yuu
  **/
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class EBookVo extends PageReq {
-    private Long id;
-    private String name;
+@NoArgsConstructor
+public class PageReq {
+    private int page;
+    private int size;
 }
