@@ -9,6 +9,7 @@ import com.jiawa.wiki.vo.resp.PageRespVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author yuu
@@ -20,7 +21,7 @@ public class EbookController {
     private EBookService ebookService;
 
     @GetMapping("/list")
-    public CommonResp list(EBookVo ebookVO) {
+    public CommonResp list(@Valid EBookVo ebookVO) {
         CommonResp<PageRespVo<EBookRespVo>> commonResp = new CommonResp<>();
         PageRespVo<EBookRespVo> list = ebookService.list(ebookVO);
         commonResp.setContent(list);
